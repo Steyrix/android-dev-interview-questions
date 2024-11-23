@@ -1,6 +1,6 @@
 # android-dev-interview-questions
-My list of esoteric or not very often encountering technical questions that one can face during a technical interview for the Android Developer role.
-From my experience, these questions are oftenly met at the technical interview for Senior grade.
+My list of **esoteric/not very oftenly met/relatively difficult** technical questions that one can face during a technical interview for the Android Developer role.
+From my experience, these questions are oftenly met at the technical interview for the Senior grade.
 This list does not include many of the standard questions as they all can be easily found on the internet.
 
 ## Kotlin section
