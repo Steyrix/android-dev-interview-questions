@@ -132,7 +132,9 @@ Data classes with only immutable values and primitives are Immutable by default,
 MutableState is a value holder to which current RecomposeScope will subscribe. If the value is written to or changed, all subscribed instances of RecomposeScope will schedule recompositions.  
 
 #### What is remember?
-Remember allows to remember the value from the previous compose invocation.  How do Compose works under the hood?
+Remember allows to remember the value from the previous compose invocation.  
+
+#### How do Compose works under the hood?
 The calling context of Composition is called «composer» that acts as the parameter that we send to every composable function. Composer containing Gap Buffer which acts as an array where empty space is allocated «in case» composable function will be updated and new composable will be attached to it. It is only needed for restartable Composables. The gap can be moved from functions to function, this operation is O(n), however we should build the composition in a way ensuring that this operation will not happen very often.  When composable is called, composer.start() gets executed. It inserts an object with integer id to the buffer, remember expressions are also inserting object to the buffer. The values of mutableStates will also be stored in buffer. Composer is passed to every inner composable and will insert new Group object, values after calling «start» with now different id.  What are Composition Group objects?
 Group objects are inserted to the graph if the composables referring to them can change UI. When changes are made, composer.start is called with different group id and compiler detects that it doesn’t match previous group id, so the cursor is moved to the currently activated group and empty space allocated after it.
 
