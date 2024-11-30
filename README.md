@@ -18,14 +18,14 @@ Sequence processes elements on demand one by one, avoiding creating of intermedi
 List’s operators create intermediate collections and process elements as a whole collection. Sequence can be used to process enormous amount of elements.
 
 #### Sorting sequence 
-Sequence is converted to MutableList, get sorted and then the list is converted to sequence.
+Sequence is converted to MutableList, get sorted and then the list is converted back to sequence.
 
 #### Inner class vs nested class
-Nested class can be created via class definition of outer class.
-Whereas inner class requires an instance of outer class and can access its fields.  
+Nested class can be created via class definition of the outer class.
+Whereas inner class requires an instance of the outer class and can access its fields.  
 
 #### Enum vs sealed
-Enum value is not truly a new type whereas sealed type subclass is truly a new different types.
+Enum value is not truly a new typem whereas sealed type subclass is truly a new different types.
 
 #### When is it necessary to use sealed interface instead of sealed class?
 Sealed interface usage allows a subtype to participate in a more complex class hierarchy and extend a class. 
@@ -36,10 +36,13 @@ Sealed classes can be used to define a set of properties that has default values
 is not available in interfaces.
 
 #### What are Delegates?
-Can use instance of a class/interface to pass the behavior
+Class delegates are mechanism which provides the ability to use instance of a class/interface to pass the behavior.
+Field delegates are used to override specific property's set and get operations. Eventhough `get` and `set` can be implemented manually,
+delegates are reusable while "manual" getters and setters are not.
 
 #### What is Java Memory Model
-Shortly, Java Memory model states that each thread has its own segment of memory.
+Shortly, Java Memory model states that each thread has its own segment of memory and that CAS (see below) operations are guarantted
+to be atomic.
 
 #### How do Atomics work?
 Atomic uses CompareAndSet / CompareAndSwap operations which is primitive CPU-level operation. 
@@ -47,10 +50,13 @@ The CAS operation compares if value at known location equals to the existing val
 
 #### Kotlin in/out
 **out** is equivalent to <? extends T>
-**in** is equivalent to <? super T>  JVM ensures type safety so we cannot assign subtype generic object to supertype generic object and later modify supertype object with illegal types.  
+
+**in** is equivalent to <? super T>  
+
+JVM ensures type safety so we cannot assign subtype generic object to supertype generic object and later modify supertype object with illegal types.  
 
 #### Kotlin in/out ensuring type safety
-For example **in** allows us to assign any subtype type to any supertype since it can only be consumed. 
+For example, **in** allows us to assign any subtype type to any supertype since it can only be consumed. 
 **out** restricts consumption of illegal types (add/set element of integer to the list of strings)
 In restrict production of illegal types (consume String to compare it with Number)
 
