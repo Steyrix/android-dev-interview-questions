@@ -14,18 +14,18 @@ This list does not include many of the standard questions as they all can be eas
     - JVM related specific objects
 
 #### Sequence vs List
-Sequence processes elements on demand one by one, avoiding creating of intermediate collections. 
-List’s operators create intermediate collections and process elements as a whole collection. Sequence can be used to process enormous amount of elements.
+`Sequence` processes elements on demand one by one, avoiding creating of intermediate collections. 
+`List` operators create intermediate collections and process elements as a whole collection. `Sequence` can be used to process enormous amount of elements.
 
 #### Sorting sequence 
-Sequence is converted to MutableList, get sorted and then the list is converted back to sequence.
+`Sequence` is converted to `MutableList`, get sorted and then the list is converted back to sequence.
 
 #### Inner class vs nested class
 Nested class can be created via class definition of the outer class.
 Whereas inner class requires an instance of the outer class and can access its fields.  
 
 #### Enum vs sealed
-Enum value is not truly a new typem whereas sealed type subclass is truly a new different types.
+`Enum` value is not truly a new typem whereas sealed type subclass is truly a new different types.
 
 #### When is it necessary to use sealed interface instead of sealed class?
 Sealed interface usage allows a subtype to participate in a more complex class hierarchy and extend a class. 
@@ -49,22 +49,22 @@ Atomic uses CompareAndSet / CompareAndSwap operations which is primitive CPU-lev
 The CAS operation compares if value at known location equals to the existing value and if it does - the old value is swapped with the new value.
 
 #### Kotlin in/out
-**out** is equivalent to <? extends T>
+**out** is equivalent to `<? extends T>`
 
-**in** is equivalent to <? super T>  
+**in** is equivalent to `<? super T>`  
 
 JVM ensures type safety so we cannot assign subtype generic object to supertype generic object and later modify supertype object with illegal types.  
 
 #### Kotlin in/out ensuring type safety
 For example, **in** allows us to assign any subtype type to any supertype since it can only be consumed. 
 **out** restricts consumption of illegal types (add/set element of integer to the list of strings)
-In restrict production of illegal types (consume String to compare it with Number)
+In restrict production of illegal types (consume `String` to compare it with `Number`)
 
 
 ## Coroutines section
 
 #### How does delay() works?
-delay() does not block thread allowing another work to run. 
+`delay()` does not block thread allowing another work to run. 
 Suspended code’s timer is observed constantly, coroutine’s queue depends on it and reorders queue based on remaining delay.
 
 #### Why synchronized cannot be used with suspend methods?
@@ -72,14 +72,14 @@ Synchronized cannot be used with coroutines since they use continuation pattern.
 When the coroutine will reach the critical point, it will suspend and release the lock for another thread to acquire. 
 
 #### Is there a possibility to manually create Deferred<T>?
-There is a possibility to create deferred using the constructor of CompletableDeferred<T> without async coroutine builder. 
+There is a possibility to create deferred using the constructor of `CompletableDeferred<T>` without async coroutine builder. 
 This allows to pass deferred anywhere and then subscribe to it.
 
 #### How do multiple launch calls in a single thread arranged?
-Launch gets enqueued. The queue can be reordered base on suspensions points and suspending time.
+`launch` gets enqueued. The queue can be reordered base on suspensions points and suspending time.
 
 #### How to dispatch work on IO/Default and guarantee only one thread will be used?
-Dispatcher.limitedParalellism() - method that is used to limit dispatcher’s thread pool.
+`Dispatcher.limitedParalellism()` - method that is used to limit dispatcher’s thread pool.
 
 #### How is continuation passing approach implemented while JVM does not provide tools for it?
 When suspend function launched, it creates a continuation object referring to it. 
@@ -91,21 +91,21 @@ Continuation object is able to store parent function's continuation to provide s
 ## Android section
 
 #### viewModelScope vs lifecycleScope:
-viewModelScope is bound to ViewModel’s lifecycle, whereas lifecycleScope is bound to specific’s lifecycleOwner.
-viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) is an example of coroutine restart in STARTED state.
-flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED) is an example of processing a flow in STARTED state;
+`viewModelScope` is bound to ViewModel’s lifecycle, whereas `lifecycleScope` is bound to specific’s `lifecycleOwner`.
+`viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED)` is an example of coroutine restart in STARTED state.
+`flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)` is an example of processing a flow in STARTED state;
 whenStarted() is a suspension point for coroutine.
 
 #### How to change view’s size in onMeasure() callback?
-Override onMeasure() method, using parent’s dimension passed via widthMeasureSpec  and heightMeasureSpec 
-Parameters. Dimensions should be changed via setMeasuredDimension(). Otherwise view’s size will be 100x100.
+Override `onMeasure()` method, using parent’s dimension passed via `widthMeasureSpec`  and `heightMeasureSpec` 
+parameters. Dimensions should be changed via `setMeasuredDimension()`. Otherwise view’s size will be 100x100.
 
 #### What is purpose of implicit Intents?
-Implicit intents does not target specific component but describe the action and their parameters later «catched» by intent-filters of other components (e.g. other application’s BroadcastReceiver). If multiple intent-filters can process implicit intent, dialog with choice of application displays.
+Implicit intents does not target specific component but describe the action and their parameters later «catched» by intent-filters of other components (e.g. other application’s `BroadcastReceiver`). If multiple intent-filters can process implicit intent, dialog with choice of application displays.
 
 #### Broadcast receiver, case when onReceive() performs a long running operation
-By default, onReceive() works on main thread. Long task then can result in ANR.
-Long running operations should be performed via Service. For that goAsync() should be called in onReceive() and BroadcastReceiver.PendingResult should be passed to the background thread.
+By default, `onReceive()` works on main thread. Long task then can result in ANR.
+Long running operations should be performed via Service. For that `goAsync()` should be called in `onReceive()` and `BroadcastReceiver.PendingResul`t should be passed to the background thread.
 Alternative is passing the job to JobScheduler
 
 #### What are WEBp format’s benefits?
@@ -118,9 +118,9 @@ Scalable pixels vs density-independent pixels. SP preservers user’s font setti
 To launch third party API in another process and prevent it interfering with main process stack OR perform application components-related work outside.
 
 #### What are FragmentManager’s commit operation types?
-- commitNow - immediately perform transaction
-- commitAllowStateLoss - perform commit even after onRestoreInstanceState.
-- commit - regular commit operation that is enqued as the task on UI thread.
+- `commitNow` - immediately perform transaction
+- `commitAllowStateLoss` - perform commit even after onRestoreInstanceState.
+- `commit` - regular commit operation that is enqued as the task on UI thread.
 
 #### What are Parcelable limitations>?
 Parcelable memory limitation is 1MB by default. 
@@ -132,16 +132,16 @@ Compose is representing composable as a node tree. When the state of node change
 
 #### What is Mutable/Immutable/Stable in Compose?
 If composable’s parameters are only immutable ones, it can be marked as skippable.
-Data classes with only immutable values and primitives are Immutable by default, whereas all plain collections are mutable. Stable types are types, which can change during the work, however they «promise» to notify Compose that the changes are made. The one way to do this is to use MutableState (compose «subscribes» to mutable states)
+Data classes with only immutable values and primitives are Immutable by default, whereas all plain collections are mutable. Stable types are types, which can change during the work, however they «promise» to notify Compose that the changes are made. The one way to do this is to use `MutableState` (compose «subscribes» to mutable states)
 
 #### What is MutableState?
-MutableState is a value holder to which current RecomposeScope will subscribe. If the value is written to or changed, all subscribed instances of RecomposeScope will schedule recompositions.  
+`MutableState` is a value holder to which current `RecomposeScope` will subscribe. If the value is written to or changed, all subscribed instances of `RecomposeScope` will schedule recompositions.  
 
 #### What is remember?
-Remember allows to remember the value from the previous compose invocation.  
+`remember` allows to remember the value from the previous compose invocation.  
 
 #### How do Compose works under the hood?
-The calling context of Composition is called «composer» that acts as the parameter that we send to every composable function. Composer containing Gap Buffer which acts as an array where empty space is allocated «in case» composable function will be updated and new composable will be attached to it. It is only needed for restartable Composables. The gap can be moved from functions to function, this operation is O(n), however we should build the composition in a way ensuring that this operation will not happen very often.  When composable is called, composer.start() gets executed. It inserts an object with integer id to the buffer, remember expressions are also inserting object to the buffer. The values of mutableStates will also be stored in buffer. Composer is passed to every inner composable and will insert new Group object, values after calling «start» with now different id.  What are Composition Group objects?
+The calling context of Composition is called «composer» that acts as the parameter that we send to every composable function. Composer containing Gap Buffer which acts as an array where empty space is allocated «in case» composable function will be updated and new composable will be attached to it. It is only needed for restartable Composables. The gap can be moved from functions to function, this operation is O(n), however we should build the composition in a way ensuring that this operation will not happen very often.  When composable is called, `composer.start()` gets executed. It inserts an object with integer id to the buffer, remember expressions are also inserting object to the buffer. The values of mutableStates will also be stored in buffer. Composer is passed to every inner composable and will insert new Group object, values after calling «start» with now different id.  What are Composition Group objects?
 Group objects are inserted to the graph if the composables referring to them can change UI. When changes are made, composer.start is called with different group id and compiler detects that it doesn’t match previous group id, so the cursor is moved to the currently activated group and empty space allocated after it.
 
 #### What is CompositionLocalProvider?
